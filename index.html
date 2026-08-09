@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nasik Shah Khan — Software Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#EDF1F5;
+    --paper-alt:#E2E9F0;
+    --white:#FAFCFE;
+    --ink:#10243D;
+    --ink-soft:#3A5570;
+    --blue:#1B3A5C;
+    --blue-line:#2F6690;
+    --blue-line-soft:rgba(47,102,144,0.35);
+    --amber:#E8A33D;
+    --amber-deep:#C9832A;
+    --green:#3F7D58;
+    --font-display:'Space Grotesk', sans-serif;
+    --font-body:'IBM Plex Sans', sans-serif;
+    --font-mono:'JetBrains Mono', monospace;
+    --maxw:1180px;
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+
+  html{scroll-behavior:smooth;}
+
+  body{
+    font-family:var(--font-body);
+    background:
+      repeating-linear-gradient(0deg, var(--blue-line-soft) 0px, var(--blue-line-soft) 1px, transparent 1px, transparent 88px),
+      repeating-linear-gradient(90deg, var(--blue-line-soft) 0px, var(--blue-line-soft) 1px, transparent 1px, transparent 88px),
+      var(--paper);
+    background-attachment:fixed;
+    color:var(--ink);
+    line-height:1.6;
+    opacity:0;
+    animation:pageIn .6s ease forwards;
+  }
+
+  @keyframes pageIn{ to{opacity:1;} }
+
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important;}
+  }
+
+  ::selection{ background:var(--amber); color:var(--blue); }
+
+  a{ color:inherit; text-decoration:none; }
+
+  .wrap{ max-width:var(--maxw); margin:0 auto; padding:0 32px; }
+
+  /* ---------- eyebrow / section labels ---------- */
+  .eyebrow{
+    font-family:var(--font-mono);
+    font-size:12.5px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--blue-line);
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:18px;
+  }
+  .eyebrow::before{
+    content:"";
+    width:22px; height:1px;
+    background:var(--blue-line);
+    display:inline-block;
+  }
+
+  /* ---------- nav ---------- */
+  header{
+    position:fixed; top:0; left:0; right:0; z-index:100;
+    background:rgba(237,241,245,0.86);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--blue-line-soft);
+  }
+  nav{
+    max-width:var(--maxw); margin:0 auto; padding:16px 32px;
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .logo{
+    font-family:var(--font-mono);
+    font-weight:600; font-size:15px;
+    letter-spacing:.04em;
+    color:var(--blue);
+    display:flex; align-items:baseline; gap:6px;
+  }
+  .logo span{ color:var(--amber-deep); }
+  .nav-links{ display:flex; gap:34px; font-family:var(--font-mono); font-size:13px; letter-spacing:.04em; }
+  .nav-links a{ color:var(--ink-soft); position:relative; padding:4px 0; transition:color .2s ease; }
+  .nav-links a:hover{ color:var(--blue); }
+  .nav-links a::after{
+    content:""; position:absolute; left:0; bottom:-2px; width:0; height:1px;
+    background:var(--amber-deep); transition:width .25s ease;
+  }
+  .nav-links a:hover::after{ width:100%; }
+  .nav-cta{
+    font-family:var(--font-mono); font-size:12.5px; letter-spacing:.05em;
+    border:1px solid var(--blue); color:var(--blue);
+    padding:8px 16px; border-radius:2px;
+    transition:background .2s ease, color .2s ease;
+  }
+  .nav-cta:hover{ background:var(--blue); color:var(--white); }
+  .nav-toggle{ display:none; }
+
+  /* ---------- hero ---------- */
+  .hero{
+    position:relative;
+    padding:190px 0 120px;
+    overflow:hidden;
+  }
+  .hero-grid{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:36px;
+    position:relative;
+    z-index:2;
+  }
+  .hero .eyebrow{ opacity:0; animation:riseIn .6s ease .1s forwards; }
+  .hero h1{
+    font-family:var(--font-display);
+    font-weight:700;
+    font-size:clamp(42px, 7vw, 84px);
+    line-height:1.02;
+    letter-spacing:-.02em;
+    color:var(--blue);
+    max-width:780px;
+    opacity:0; animation:riseIn .7s ease .22s forwards;
+  }
+  .hero h1 em{
+    font-style:normal;
+    color:var(--amber-deep);
+    position:relative;
+  }
+  .hero p.lede{
+    font-size:19px;
+    color:var(--ink-soft);
+    max-width:560px;
+    opacity:0; animation:riseIn .7s ease .36s forwards;
+  }
+  .hero-meta{
+    display:flex; flex-wrap:wrap; gap:12px;
+    font-family:var(--font-mono); font-size:12.5px; color:var(--blue-line);
+    opacity:0; animation:riseIn .7s ease .48s forwards;
+  }
+  .tag-pill{
+    border:1px solid var(--blue-line-soft);
+    padding:6px 12px; border-radius:2px;
+    background:rgba(255,255,255,0.4);
+  }
+  .hero-ctas{
+    display:flex; gap:16px; flex-wrap:wrap;
+    opacity:0; animation:riseIn .7s ease .58s forwards;
+  }
+  .btn{
+    font-family:var(--font-mono); font-size:13.5px; letter-spacing:.04em;
+    padding:13px 24px; border-radius:2px;
+    display:inline-flex; align-items:center; gap:8px;
+    transition:transform .2s ease, box-shadow .2s ease, background .2s ease, color .2s ease;
+  }
+  .btn-primary{ background:var(--blue); color:var(--white); }
+  .btn-primary:hover{ background:var(--amber-deep); transform:translateY(-2px); box-shadow:0 8px 18px rgba(27,58,92,.18); }
+  .btn-ghost{ border:1px solid var(--blue); color:var(--blue); }
+  .btn-ghost:hover{ background:var(--blue); color:var(--white); transform:translateY(-2px); }
+
+  @keyframes riseIn{ from{opacity:0; transform:translateY(14px);} to{opacity:1; transform:translateY(0);} }
+
+  /* AGV path svg */
+  .path-canvas{
+    position:absolute; inset:0; z-index:1; pointer-events:none;
+    opacity:.9;
+  }
+  .agv-path{
+    fill:none; stroke:var(--blue-line); stroke-width:1.6;
+    stroke-dasharray:2200;
+    stroke-dashoffset:2200;
+    animation:draw 3.2s cubic-bezier(.5,0,.2,1) .3s forwards;
+  }
+  .agv-dot{ fill:var(--amber); opacity:0; }
+  .agv-dot.d1{ animation:popIn .4s ease .9s forwards; }
+  .agv-dot.d2{ animation:popIn .4s ease 1.7s forwards; }
+  .agv-dot.d3{ animation:popIn .4s ease 2.5s forwards; }
+  .agv-dot.d4{ animation:popIn .4s ease 3.2s forwards; }
+  .agv-label{
+    font-family:var(--font-mono); font-size:11px; fill:var(--blue-line);
+    opacity:0;
+  }
+  .agv-label.d1{ animation:popIn .4s ease 1s forwards; }
+  .agv-label.d2{ animation:popIn .4s ease 1.8s forwards; }
+  .agv-label.d3{ animation:popIn .4s ease 2.6s forwards; }
+  .agv-label.d4{ animation:popIn .4s ease 3.3s forwards; }
+
+  @keyframes draw{ to{ stroke-dashoffset:0; } }
+  @keyframes popIn{ from{opacity:0; transform:scale(.4);} to{opacity:1; transform:scale(1);} }
+
+  /* ---------- generic section ---------- */
+  section{ padding:110px 0; position:relative; }
+  .section-head{ max-width:640px; margin-bottom:56px; }
+  .section-head h2{
+    font-family:var(--font-display); font-weight:600;
+    font-size:clamp(28px,4vw,40px);
+    color:var(--blue);
+    letter-spacing:-.01em;
+  }
+  .section-head p{ color:var(--ink-soft); margin-top:14px; font-size:16px; max-width:520px; }
+
+  .reveal{ opacity:0; transform:translateY(24px); transition:opacity .7s ease, transform .7s ease; }
+  .reveal.in{ opacity:1; transform:translateY(0); }
+
+  /* ---------- about ---------- */
+  .about-grid{
+    display:grid; grid-template-columns: 1.1fr .9fr; gap:60px; align-items:start;
+  }
+  .about-copy p{ margin-bottom:16px; color:var(--ink-soft); font-size:16px; }
+  .about-copy strong{ color:var(--blue); font-weight:600; }
+
+  .panel{
+    position:relative;
+    border:1px solid var(--blue-line-soft);
+    background:rgba(255,255,255,0.45);
+    padding:26px 24px;
+  }
+  .panel::before, .panel::after{
+    content:""; position:absolute; width:12px; height:12px;
+    border-color:var(--amber-deep); border-style:solid;
+  }
+  .panel::before{ top:-1px; left:-1px; border-width:2px 0 0 2px; }
+  .panel::after{ bottom:-1px; right:-1px; border-width:0 2px 2px 0; }
+
+  .skills-legend{ display:flex; flex-direction:column; gap:20px; }
+  .skill-row{ display:flex; flex-direction:column; gap:9px; }
+  .skill-row .label{
+    font-family:var(--font-mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--blue-line);
+  }
+  .chip-row{ display:flex; flex-wrap:wrap; gap:8px; }
+  .chip{
+    font-family:var(--font-mono); font-size:12.5px;
+    border:1px solid var(--blue-line-soft);
+    padding:5px 10px; border-radius:2px; color:var(--ink);
+    background:var(--white);
+  }
+
+  /* ---------- projects ---------- */
+  .project-list{ display:flex; flex-direction:column; gap:2px; }
+  .project-card{
+    position:relative;
+    border-top:1px solid var(--blue-line-soft);
+    padding:44px 0;
+    display:grid;
+    grid-template-columns: 90px 1fr 260px;
+    gap:32px;
+    transition:background .25s ease;
+  }
+  .project-card:last-child{ border-bottom:1px solid var(--blue-line-soft); }
+  .project-card:hover{ background:rgba(255,255,255,0.5); }
+  .fig-num{
+    font-family:var(--font-mono); color:var(--amber-deep); font-size:13px; letter-spacing:.05em; padding-top:4px;
+  }
+  .project-body h3{
+    font-family:var(--font-display); font-size:24px; font-weight:600; color:var(--blue); margin-bottom:6px;
+  }
+  .project-tagline{ font-family:var(--font-mono); font-size:12px; color:var(--blue-line); margin-bottom:14px; letter-spacing:.03em;}
+  .project-body p{ color:var(--ink-soft); font-size:15px; margin-bottom:14px; }
+  .project-body ul{ list-style:none; display:flex; flex-direction:column; gap:6px; margin-bottom:16px; }
+  .project-body li{ font-size:14.5px; color:var(--ink-soft); padding-left:16px; position:relative; }
+  .project-body li::before{ content:"—"; position:absolute; left:0; color:var(--blue-line); }
+  .stack-row{ display:flex; flex-wrap:wrap; gap:8px; }
+  .project-links{ display:flex; flex-direction:column; gap:10px; align-items:flex-start; padding-top:4px; }
+  .project-links a{
+    font-family:var(--font-mono); font-size:12.5px; color:var(--blue);
+    border-bottom:1px solid var(--blue-line-soft);
+    padding-bottom:2px;
+    transition:color .2s ease, border-color .2s ease;
+  }
+  .project-links a:hover{ color:var(--amber-deep); border-color:var(--amber-deep); }
+  .status-badge{
+    font-family:var(--font-mono); font-size:11px; letter-spacing:.06em;
+    color:var(--green); border:1px solid var(--green); padding:4px 9px; border-radius:2px;
+    width:fit-content;
+  }
+
+  /* ---------- experience / education ---------- */
+  .timeline{ display:flex; flex-direction:column; }
+  .tl-item{
+    display:grid; grid-template-columns:160px 1fr; gap:32px;
+    padding:30px 0; border-top:1px solid var(--blue-line-soft);
+  }
+  .tl-item:last-child{ border-bottom:1px solid var(--blue-line-soft); }
+  .tl-date{ font-family:var(--font-mono); font-size:12.5px; color:var(--blue-line); padding-top:3px; }
+  .tl-body h3{ font-family:var(--font-display); font-size:19px; color:var(--blue); margin-bottom:4px; }
+  .tl-org{ font-family:var(--font-mono); font-size:12.5px; color:var(--ink-soft); margin-bottom:12px; }
+  .tl-body ul{ list-style:none; display:flex; flex-direction:column; gap:6px; }
+  .tl-body li{ font-size:14.5px; color:var(--ink-soft); padding-left:16px; position:relative; }
+  .tl-body li::before{ content:"—"; position:absolute; left:0; color:var(--blue-line); }
+
+  .edu-grid{ display:grid; grid-template-columns:1fr 1fr; gap:24px; margin-top:36px; }
+  .edu-stat{
+    border:1px solid var(--blue-line-soft); padding:20px; background:rgba(255,255,255,.4);
+  }
+  .edu-stat .num{ font-family:var(--font-display); font-size:30px; color:var(--blue); font-weight:700; }
+  .edu-stat .cap{ font-family:var(--font-mono); font-size:11.5px; color:var(--blue-line); text-transform:uppercase; letter-spacing:.08em; margin-top:6px; }
+
+  /* ---------- contact ---------- */
+  .contact-panel{
+    padding:70px 48px;
+    border:1px solid var(--blue-line-soft);
+    background:linear-gradient(135deg, rgba(255,255,255,.55), rgba(255,255,255,.25));
+    position:relative;
+    text-align:center;
+  }
+  .contact-panel::before, .contact-panel::after{
+    content:""; position:absolute; width:16px; height:16px;
+    border-color:var(--amber-deep); border-style:solid;
+  }
+  .contact-panel::before{ top:-1px; left:-1px; border-width:2px 0 0 2px; }
+  .contact-panel::after{ bottom:-1px; right:-1px; border-width:0 2px 2px 0; }
+  .contact-panel h2{
+    font-family:var(--font-display); font-size:clamp(28px,5vw,46px); color:var(--blue); font-weight:700;
+    max-width:640px; margin:0 auto 20px;
+  }
+  .contact-panel p{ color:var(--ink-soft); max-width:480px; margin:0 auto 34px; }
+  .contact-links{ display:flex; justify-content:center; gap:16px; flex-wrap:wrap; }
+
+  footer{
+    padding:36px 0 50px;
+    display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;
+    font-family:var(--font-mono); font-size:11.5px; color:var(--blue-line);
+    border-top:1px solid var(--blue-line-soft);
+  }
+
+  /* focus visibility */
+  a:focus-visible, .btn:focus-visible{ outline:2px solid var(--amber-deep); outline-offset:3px; }
+
+  /* ---------- responsive ---------- */
+  @media (max-width:860px){
+    .nav-links{ display:none; }
+    .about-grid{ grid-template-columns:1fr; }
+    .project-card{ grid-template-columns:1fr; gap:14px; }
+    .project-links{ flex-direction:row; flex-wrap:wrap; }
+    .tl-item{ grid-template-columns:1fr; gap:8px; }
+    .edu-grid{ grid-template-columns:1fr 1fr; }
+    .contact-panel{ padding:48px 24px; }
+    .hero{ padding:150px 0 90px; }
+  }
+  @media (max-width:520px){
+    .edu-grid{ grid-template-columns:1fr; }
+    .wrap{ padding:0 20px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <div class="logo">NSK<span>—01</span></div>
+    <div class="nav-links">
+      <a href="#about">About</a>
+      <a href="#work">Work</a>
+      <a href="#experience">Experience</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <a class="nav-cta" href="#contact">Get in touch</a>
+  </nav>
+</header>
+
+<main>
+  <section class="hero">
+    <svg class="path-canvas" viewBox="0 0 1180 560" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      <path class="agv-path" d="M -20 480 L 220 480 L 220 340 L 480 340 L 480 460 L 760 460 L 760 200 L 1020 200 L 1020 60 L 1220 60" />
+      <circle class="agv-dot d1" cx="220" cy="480" r="5"></circle>
+      <circle class="agv-dot d2" cx="480" cy="340" r="5"></circle>
+      <circle class="agv-dot d3" cx="760" cy="200" r="5"></circle>
+      <circle class="agv-dot d4" cx="1020" cy="60" r="5"></circle>
+      <text class="agv-label d1" x="232" y="472">REACT / NODE</text>
+      <text class="agv-label d2" x="492" y="332">MONGODB</text>
+      <text class="agv-label d3" x="772" y="192">ESP32</text>
+      <text class="agv-label d4" x="890" y="50">DIJKSTRA</text>
+    </svg>
+
+    <div class="wrap hero-grid">
+      <div class="eyebrow">FIG. 01 — SYSTEM OVERVIEW</div>
+      <h1>Nasik Shah Khan<br>builds the <em>software</em><br>that moves the <em>hardware</em>.</h1>
+      <p class="lede">Final-year Computer Science engineer from Islamabad, Pakistan — full-stack developer with a habit of wiring web platforms straight into physical systems: robots, sensors, and the warehouses they run in.</p>
+      <div class="hero-meta">
+        <span class="tag-pill">BS Computer Science — CUST, Islamabad</span>
+        <span class="tag-pill">Open to Software Engineering Internships</span>
+        <span class="tag-pill">Islamabad, Pakistan</span>
+      </div>
+      <div class="hero-ctas">
+        <a class="btn btn-primary" href="#work">View the work ↓</a>
+        <a class="btn btn-ghost" href="mailto:nasik_khan@hotmail.com">Say hello</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="eyebrow">SEC. 02 — PROFILE</div>
+        <h2>Profile &amp; toolset</h2>
+        <p>What I work with, day to day — from the browser down to the microcontroller.</p>
+      </div>
+
+      <div class="about-grid">
+        <div class="about-copy reveal">
+          <p>I'm a Computer Science undergraduate at <strong>Capital University of Science and Technology (CUST), Islamabad</strong>, finishing up my degree with coursework in Deep Learning, Artificial Intelligence, Data Structures, and Algorithms.</p>
+          <p>My final year project, <strong>TRANSBOT</strong>, paired a full warehouse-automation web platform with a physical line-following robot — which is where most of my interest sits: the point where a well-built interface meets something that actually moves in the real world. Outside of that, I've spent time as a <strong>Front End Developer Intern at Proton Soft Tech</strong>, shipping responsive interfaces on live client sites, and I keep a rotation of personal projects — an e-commerce platform, a cloud-storage clone, a machine-learning model — to stay sharp across the stack.</p>
+          <p>I'm currently looking for a <strong>software development internship</strong> where I can keep building full-stack systems, ideally ones with a hardware or systems-level edge to them.</p>
+        </div>
+
+        <div class="panel reveal">
+          <div class="skills-legend">
+            <div class="skill-row">
+              <div class="label">Languages</div>
+              <div class="chip-row">
+                <span class="chip">Python</span><span class="chip">JavaScript</span><span class="chip">SQL</span><span class="chip">C++</span>
+              </div>
+            </div>
+            <div class="skill-row">
+              <div class="label">Web &amp; Tools</div>
+              <div class="chip-row">
+                <span class="chip">React</span><span class="chip">Node.js / Express</span><span class="chip">HTML/CSS</span><span class="chip">REST APIs</span><span class="chip">Git</span>
+              </div>
+            </div>
+            <div class="skill-row">
+              <div class="label">Data &amp; ML</div>
+              <div class="chip-row">
+                <span class="chip">Pandas</span><span class="chip">NumPy</span><span class="chip">Matplotlib</span><span class="chip">Jupyter</span>
+              </div>
+            </div>
+            <div class="skill-row">
+              <div class="label">Databases</div>
+              <div class="chip-row">
+                <span class="chip">SQL</span><span class="chip">MongoDB</span><span class="chip">Relational Design</span>
+              </div>
+            </div>
+            <div class="skill-row">
+              <div class="label">Concepts</div>
+              <div class="chip-row">
+                <span class="chip">OOP</span><span class="chip">Data Structures</span><span class="chip">Algorithms</span><span class="chip">SW Engineering</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="work">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="eyebrow">SEC. 03 — BUILDS</div>
+        <h2>Selected projects</h2>
+        <p>Four systems, four different problems — a warehouse robot, a storefront, a storage platform, and a prediction model.</p>
+      </div>
+
+      <div class="project-list">
+
+        <div class="project-card reveal">
+          <div class="fig-num">FIG. 01</div>
+          <div class="project-body">
+            <h3>TRANSBOT</h3>
+            <div class="project-tagline">Intelligent Warehouse Material Mover — Final Year Project</div>
+            <p>A full warehouse-automation system pairing a role-based web platform with a line-guided AGV robot capable of carrying payloads up to 5&nbsp;kg.</p>
+            <ul>
+              <li>Priority scheduler with aging and FIFO tie-breaking for fair task assignment</li>
+              <li>Feasibility engine checking payload, battery, and route distance via Dijkstra shortest-path planning</li>
+              <li>Real-time simulation of robot state, path traversal, and battery monitoring</li>
+              <li>Physical AGV prototype: line sensors, zone markers, load cell, motor drivers, obstacle detection</li>
+            </ul>
+            <div class="stack-row">
+              <span class="chip">Node.js</span><span class="chip">React</span><span class="chip">MongoDB</span><span class="chip">ESP32</span>
+            </div>
+          </div>
+          <div class="project-links">
+            <span class="status-badge">FYP — Hardware + Web</span>
+            <a href="https://github.com/nasik99-maker" target="_blank" rel="noopener">GitHub profile ↗</a>
+          </div>
+        </div>
+
+        <div class="project-card reveal">
+          <div class="fig-num">FIG. 02</div>
+          <div class="project-body">
+            <h3>Stockroom</h3>
+            <div class="project-tagline">Full-stack e-commerce platform</div>
+            <p>A storefront-to-checkout e-commerce build with authentication, catalog, cart, and an admin dashboard for managing it all.</p>
+            <ul>
+              <li>JWT-based authentication and protected routes</li>
+              <li>Product catalog, cart, and checkout flow with order history</li>
+              <li>Admin dashboard for products and orders</li>
+            </ul>
+            <div class="stack-row">
+              <span class="chip">React</span><span class="chip">Node.js / Express</span><span class="chip">SQLite</span><span class="chip">Stripe (mock)</span>
+            </div>
+          </div>
+          <div class="project-links">
+            <span class="status-badge">Personal Project</span>
+            <a href="https://github.com/nasik99-maker/stockroom-ecommerce" target="_blank" rel="noopener">View repo ↗</a>
+          </div>
+        </div>
+
+        <div class="project-card reveal">
+          <div class="fig-num">FIG. 03</div>
+          <div class="project-body">
+            <h3>CloudStore</h3>
+            <div class="project-tagline">MinIO-backed storage clone</div>
+            <p>A cloud storage web app replicating core object-storage functionality on top of MinIO's S3-compatible backend.</p>
+            <ul>
+              <li>Secure authentication with file upload, download, and folder management</li>
+              <li>RESTful API layer over MinIO object storage</li>
+              <li>SaaS-style architecture: centralized, browser-based file access</li>
+            </ul>
+            <div class="stack-row">
+              <span class="chip">Python</span><span class="chip">Flask</span><span class="chip">MinIO</span><span class="chip">REST API</span>
+            </div>
+          </div>
+          <div class="project-links">
+            <span class="status-badge">Personal Project</span>
+            <a href="https://github.com/nasik99-maker/CloudStore-MinIO-Storage-Clone." target="_blank" rel="noopener">View repo ↗</a>
+          </div>
+        </div>
+
+        <div class="project-card reveal">
+          <div class="fig-num">FIG. 04</div>
+          <div class="project-body">
+            <h3>House Price Prediction</h3>
+            <div class="project-tagline">Machine learning model</div>
+            <p>A regression model that predicts house prices from listing data, built to practice the data-science side of the stack.</p>
+            <ul>
+              <li>Data cleaning and feature exploration with Pandas and NumPy</li>
+              <li>Model training and evaluation in a Jupyter notebook workflow</li>
+            </ul>
+            <div class="stack-row">
+              <span class="chip">Python</span><span class="chip">Pandas</span><span class="chip">scikit-learn</span><span class="chip">Jupyter</span>
+            </div>
+          </div>
+          <div class="project-links">
+            <span class="status-badge">Personal Project</span>
+            <a href="https://github.com/nasik99-maker/house-price-prediction" target="_blank" rel="noopener">View repo ↗</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section id="experience">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="eyebrow">SEC. 04 — LOG</div>
+        <h2>Experience &amp; education</h2>
+        <p>Where I've worked, and what I've studied along the way.</p>
+      </div>
+
+      <div class="timeline">
+        <div class="tl-item reveal">
+          <div class="tl-date">JUL 2025 — SEP 2025</div>
+          <div class="tl-body">
+            <h3>Front End Developer Intern</h3>
+            <div class="tl-org">Proton Soft Tech (SMC Pvt) Limited — Islamabad, Pakistan</div>
+            <ul>
+              <li>Built responsive, modern interfaces across two live client websites</li>
+              <li><strong>Chernila Tattoo Website</strong> — clean UI layouts and interactive elements</li>
+              <li><strong>Hotelease Hotel Website</strong> — user-friendly pages focused on the booking flow and responsive design</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="tl-item reveal">
+          <div class="tl-date">2022 — PRESENT</div>
+          <div class="tl-body">
+            <h3>BS Computer Science</h3>
+            <div class="tl-org">Capital University of Science and Technology (CUST) — Islamabad, Pakistan</div>
+            <ul>
+              <li>Relevant coursework: Deep Learning, Artificial Intelligence, Data Structures, Analysis of Algorithms</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="edu-grid reveal">
+        <div class="edu-stat">
+          <div class="num">3.20</div>
+          <div class="cap">CGPA / 4.00</div>
+        </div>
+        <div class="edu-stat">
+          <div class="num">4</div>
+          <div class="cap">Shipped Projects</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="wrap">
+      <div class="contact-panel reveal">
+        <div class="eyebrow" style="justify-content:center;">SEC. 05 — CONTACT</div>
+        <h2>Let's build something that ships.</h2>
+        <p>Looking for a software development intern who's comfortable across the stack — and not afraid of a soldering iron? Let's talk.</p>
+        <div class="contact-links">
+          <a class="btn btn-primary" href="mailto:nasik_khan@hotmail.com">nasik_khan@hotmail.com</a>
+          <a class="btn btn-ghost" href="https://www.linkedin.com/in/nasik-khan123" target="_blank" rel="noopener">LinkedIn ↗</a>
+          <a class="btn btn-ghost" href="https://github.com/nasik99-maker" target="_blank" rel="noopener">GitHub ↗</a>
+          <a class="btn btn-ghost" href="tel:+923313552249">+92 331 3552249</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="wrap">
+    <span>© 2026 NASIK SHAH KHAN</span>
+    <span>ISLAMABAD, PK — REV. 01</span>
+  </footer>
+</main>
+
+<script>
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if(e.isIntersecting){
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  revealEls.forEach(el => io.observe(el));
+</script>
+
+</body>
+</html>
